@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Text Summarizer!</h1>
+    <form action="{{url_for('summarize')}}", method="post">
+
+        <textarea id="text" name="text" row="10" cols="50" required></textarea>
+        <input type="submit">
+    </form>
+    {% if summary %}
+        <h2>Text: </h2>
+        <p>{{ summary }} </p>
+    {% endif %}
+</body>
+</html>
