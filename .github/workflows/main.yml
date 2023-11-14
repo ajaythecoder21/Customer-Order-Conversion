@@ -1,4 +1,4 @@
-name: CI/CD with Docker
+name: Build and Push Docker Image
 
 on:
   push:
@@ -17,9 +17,5 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./Dockerfile
-        platforms: linux/amd64
         push: true
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        tags: yourusername/yourimage:latest
