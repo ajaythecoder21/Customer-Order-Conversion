@@ -5,30 +5,30 @@ on:
     branches: ['master']
 
 jobs:
-  build:
+  push_to_registry:
     name: Push Docker image 
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    - name: Log into Docker Hub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Extract tags, metadata from Docker
-      id: meta
-      uses: docker/metadata-action@v1
-      with:
-        images: ajaykamal2021/summarization_image
+      - name: Checkout code
+        uses: actions/checkout@v3
         
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v1
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-      
+      - name: Log into Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+    
+      - name: Extract tags, metadata from Docker
+        id: meta
+        uses: docker/metadata-action@v1
+        with:
+          images: ajaykamal2021/summarization_image
+          
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v1
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+        
