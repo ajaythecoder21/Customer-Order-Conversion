@@ -7,8 +7,6 @@ COPY requirements.txt .
 RUN pip3 install pipenv
 RUN apt-get update && apt-get install -y --no-install-recommends libopenblas-dev liblapack-dev
 
-COPY Pipfile .
-COPY Pipfile.lock .
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
