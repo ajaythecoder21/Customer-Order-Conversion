@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 
+FROM python:3.10.12
 
 COPY requirements.txt .
 
