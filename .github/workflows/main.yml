@@ -34,3 +34,9 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/summarization_image:latest
+
+      - name: Deploy to Render
+              run: |
+                docker login -u "_token" -p "${{ secrets.RENDER_TOKEN }}" render-deploy.onrender.com
+                docker tag ${{ secrets.DOCKER_USERNAME }}/summarization_image:latest render-deploy.onrender.com/text-summarization:latest
+                docker push render-deploy.onrender.com/text-summarization:latest
