@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
-import numpy as np
+
 from transformers import TFBartForConditionalGeneration, BartTokenizer, pipeline
-import tensorflow
+
 app = Flask(__name__, template_folder="templates")
 
 model = TFBartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn")
