@@ -4,8 +4,8 @@ from transformers import TFBartForConditionalGeneration, BartTokenizer, pipeline
 import tensorflow
 app = Flask(__name__, template_folder="templates")
 
-model = TFBartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn", local_files_only=True)
-tokenizer = BartTokenizer.from_pretrained("facebook/bart-large-cnn", local_files_only=True)
+model = TFBartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn")
+tokenizer = BartTokenizer.from_pretrained("facebook/bart-large-cnn")
 summarizer= pipeline("summarization",model=model, tokenizer=tokenizer)
 @app.route('/')
 def home():
