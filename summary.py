@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 import numpy as np
-from transformers import BartForConditionalGeneration, BartTokenizer, pipeline
+from transformers import TFBartForConditionalGeneration, BartTokenizer, pipeline
 import tensorflow
 app = Flask(__name__, template_folder="templates")
 
-model = BartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn", local_files_only=True)
+model = TFBartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn", local_files_only=True)
 tokenizer = BartTokenizer.from_pretrained("facebook/bart-large-cnn", local_files_only=True)
 summarizer= pipeline("summarization",model=model, tokenizer=tokenizer)
 @app.route('/')
@@ -23,8 +23,11 @@ def summarize():
 
         #print(f"Original Text: {inputs}")
         summary = summarizer(text, max_length=150, min_length=50, length_penalty=2.0)
-
-        return render_template('index.html', summary=summary)
+        text = summary[0]['summary_text']
+        text = text.split()
+        n = 10
+        output = [' '.join(text[i:i+n]) for i in range(0, len(text), n)]
+        return render_template('index.html', output=output)
     return render_template('index.html')
 if __name__ == '__main__':
     app.run(debug=True)
